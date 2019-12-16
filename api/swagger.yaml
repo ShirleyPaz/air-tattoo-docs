@@ -1,0 +1,429 @@
+---
+swagger: "2.0"
+info:
+  description: "Esta é a documentação para AirTattoo, uma plataforma para conectar\
+    \ tatuadores e estúdios."
+  version: "1.0.0"
+  title: "AirTattoo"
+  contact:
+    email: "shirley.pazz@gmail.com"
+host: "airt-tattoo-api.herokuapp.com"
+basePath: "/api"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /tatuadores:
+    get:
+      tags:
+      - "Tatuadores"
+      summary: "Retorna os tatuadores cadastrados"
+      description: ""
+      operationId: "getTattooArtists"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "SUCCESS"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/tatuador"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Tatuadores"
+    post:
+      tags:
+      - "Tatuadores"
+      summary: "Adiciona um novo tatuador"
+      description: ""
+      operationId: "addTattooArtist"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "new tattoo artist info"
+        required: true
+        schema:
+          $ref: "#/definitions/tatuador"
+      responses:
+        "200":
+          description: "SUCCESS"
+        "400":
+          description: "INVALID INPUT"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Tatuadores"
+    put:
+      tags:
+      - "Tatuadores"
+      summary: "Atualiza o cadastro de um tatuador"
+      description: ""
+      operationId: "updateTattooArtist"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "target tattoo artist info to update"
+        required: true
+        schema:
+          $ref: "#/definitions/tatuador"
+      responses:
+        "200":
+          description: "SUCCESS"
+        "404":
+          description: "NOT FOUND"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Tatuadores"
+    delete:
+      tags:
+      - "Tatuadores"
+      summary: "Deleta o cadastro de um tatuador"
+      description: ""
+      operationId: "deleteTattooArtist"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "target tattoo artist to delete"
+        required: true
+        schema:
+          $ref: "#/definitions/deleteItem"
+      responses:
+        "200":
+          description: "SUCCESS"
+        "404":
+          description: "NOT FOUND"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Tatuadores"
+  /estudios:
+    get:
+      tags:
+      - "Estudios"
+      summary: "Retorna os estúdios cadastrados"
+      description: ""
+      operationId: "getStudios"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "SUCCESS"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/estudio"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Estudios"
+    post:
+      tags:
+      - "Estudios"
+      summary: "Adiciona um novo estudio"
+      description: ""
+      operationId: "addStudio"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "new studio info"
+        required: true
+        schema:
+          $ref: "#/definitions/estudio"
+      responses:
+        "200":
+          description: "SUCCESS"
+        "400":
+          description: "INVALID INPUT"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Estudios"
+    delete:
+      tags:
+      - "Estudios"
+      summary: "Deleta o cadastro de um estudio"
+      description: ""
+      operationId: "deleteStudio"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "target studio id to delete"
+        required: true
+        schema:
+          $ref: "#/definitions/deleteItem"
+      responses:
+        "200":
+          description: "SUCCESS"
+        "404":
+          description: "NOT FOUND"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Estudios"
+  /estudios/:id/agendas:
+    get:
+      tags:
+      - "Estudios"
+      summary: "Retorna as agendas por estudio"
+      description: ""
+      operationId: "getAgendasByStudio"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "target studio id"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "SUCCESS"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/agenda"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Estudios"
+    post:
+      tags:
+      - "Estudios"
+      summary: "Adiciona uma nova data na agenda"
+      description: ""
+      operationId: "addAgendaByStudio"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "target studio id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "new agenda info"
+        required: true
+        schema:
+          $ref: "#/definitions/agenda"
+      responses:
+        "200":
+          description: "SUCCESS"
+        "400":
+          description: "INVALID INPUT"
+        "404":
+          description: "NOT FOUND"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Estudios"
+    delete:
+      tags:
+      - "Estudios"
+      summary: "Deleta o cadastro de uma agenda"
+      description: ""
+      operationId: "deleteAgenda"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "target studio id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "target agenda to delete"
+        required: true
+        schema:
+          $ref: "#/definitions/deleteItem"
+      responses:
+        "200":
+          description: "SUCCESS"
+        "404":
+          description: "NOT FOUND"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Estudios"
+  /estudios/:id/agendas/:agendaId:
+    put:
+      tags:
+      - "Estudios"
+      summary: "Atualiza agenda"
+      description: ""
+      operationId: "UpdateAgendaByStudio"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "target studio id"
+        required: true
+        type: "string"
+      - name: "agendaId"
+        in: "query"
+        description: "target agenda id"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "new agenda info"
+        required: true
+        schema:
+          $ref: "#/definitions/agenda"
+      responses:
+        "200":
+          description: "SUCCESS"
+        "400":
+          description: "INVALID INPUT"
+        "404":
+          description: "NOT FOUND"
+        "500":
+          description: "AN ERROR HAS OCCURRED. TRY AGAIN LATER."
+      x-swagger-router-controller: "Estudios"
+definitions:
+  tatuador:
+    type: "object"
+    required:
+    - "email"
+    - "estilo"
+    - "nome"
+    properties:
+      nome:
+        type: "string"
+      email:
+        type: "string"
+      estilo:
+        type: "string"
+    example:
+      estilo: "estilo"
+      nome: "nome"
+      email: "email"
+  estudio:
+    type: "object"
+    required:
+    - "email"
+    - "nome"
+    properties:
+      nome:
+        type: "string"
+      email:
+        type: "string"
+      agenda:
+        type: "array"
+        items:
+          $ref: "#/definitions/agenda"
+    example:
+      nome: "nome"
+      agenda:
+      - data: "data"
+        horaFinal: 6.02745618307040320615897144307382404804229736328125
+        eventos:
+        - tatuador: "tatuador"
+          tipo: "tipo"
+          horaFinal: 5.962133916683182377482808078639209270477294921875
+          horaInicio: 1.46581298050294517310021547018550336360931396484375
+        - tatuador: "tatuador"
+          tipo: "tipo"
+          horaFinal: 5.962133916683182377482808078639209270477294921875
+          horaInicio: 1.46581298050294517310021547018550336360931396484375
+        horaInicio: 0.80082819046101150206595775671303272247314453125
+      - data: "data"
+        horaFinal: 6.02745618307040320615897144307382404804229736328125
+        eventos:
+        - tatuador: "tatuador"
+          tipo: "tipo"
+          horaFinal: 5.962133916683182377482808078639209270477294921875
+          horaInicio: 1.46581298050294517310021547018550336360931396484375
+        - tatuador: "tatuador"
+          tipo: "tipo"
+          horaFinal: 5.962133916683182377482808078639209270477294921875
+          horaInicio: 1.46581298050294517310021547018550336360931396484375
+        horaInicio: 0.80082819046101150206595775671303272247314453125
+      email: "email"
+  agenda:
+    type: "object"
+    required:
+    - "data"
+    - "horaFinal"
+    - "horaInicio"
+    properties:
+      data:
+        type: "string"
+      horaInicio:
+        type: "number"
+      horaFinal:
+        type: "number"
+      eventos:
+        type: "array"
+        items:
+          $ref: "#/definitions/evento"
+    example:
+      data: "data"
+      horaFinal: 6.02745618307040320615897144307382404804229736328125
+      eventos:
+      - tatuador: "tatuador"
+        tipo: "tipo"
+        horaFinal: 5.962133916683182377482808078639209270477294921875
+        horaInicio: 1.46581298050294517310021547018550336360931396484375
+      - tatuador: "tatuador"
+        tipo: "tipo"
+        horaFinal: 5.962133916683182377482808078639209270477294921875
+        horaInicio: 1.46581298050294517310021547018550336360931396484375
+      horaInicio: 0.80082819046101150206595775671303272247314453125
+  evento:
+    type: "object"
+    required:
+    - "horaFinal"
+    - "horaInicio"
+    - "tipo"
+    properties:
+      horaInicio:
+        type: "number"
+      horaFinal:
+        type: "number"
+      tipo:
+        type: "string"
+      tatuador:
+        type: "string"
+    example:
+      tatuador: "tatuador"
+      tipo: "tipo"
+      horaFinal: 5.962133916683182377482808078639209270477294921875
+      horaInicio: 1.46581298050294517310021547018550336360931396484375
+  deleteItem:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "string"
