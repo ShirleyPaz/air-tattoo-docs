@@ -7,8 +7,9 @@ info:
   title: "AirTattoo"
   contact:
     email: "shirley.pazz@gmail.com"
-host: "airt-tattoo-api.herokuapp.com"
-basePath: "/api"
+host: "air-tattoo-api.herokuapp.com"
+schemes:
+  - http
 consumes:
 - "application/json"
 produces:
